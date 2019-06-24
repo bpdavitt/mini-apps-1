@@ -1,2 +1,1 @@
-
-
+console.log('Initial setup');
