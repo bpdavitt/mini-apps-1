@@ -33,7 +33,7 @@ const setStatusText = (string) => {
   document.getElementById('game-status').textContent = (string);
 }
 
-// Check to see if selected square is a) valid move
+// Check to see if selected square is a valid move
 const handleClick = (id) => {
   if (validMove(id)) {
     handleMove(id);
@@ -48,6 +48,7 @@ const handleClick = (id) => {
   }
 }
 
+//Check to see if square is already occupied or if game is over
 const validMove = (id) => {
   return boardData[id] === undefined && boardData.gameOver !== true;    
 }
@@ -58,14 +59,17 @@ const handleMove = (id) => {
   console.log(boardData);
   selectedSquare.textContent = boardData.nextMove;
   boardData[id] = boardData.nextMove;
+  //Toggle nextMove betwen 'X' and 'O'
   boardData.toggle();
   boardData.totalMoves ++;
   setStatusText(`Current Move: Player ${boardData.nextMove}`);
+  //Don't need to check for wins before move 5
   if (boardData.totalMoves >= 5) {
     if(checkForWin()) {
       console.log('Congratulations, someone won');
       boardData.gameOver = true;
     } else {
+      //No winner after 9 moves means game is over, no winner
       if (boardData.totalMoves === 9) {
         setStatusText(`Game Over; Everyone Is A Loser`);
         boardData.gameOver = true;
@@ -74,37 +78,43 @@ const handleMove = (id) => {
   }
 }
 
+//Checks for all 8 possible win conditions. Utilizes helper to minimize code reuse
 const checkForWin = () => {
-  if(boardData['1a'] === boardData['1b'] && boardData['1a'] === boardData['1c'] && boardData['1a'] !== undefined) {
+  if(winCondition(boardData['1a'], boardData['1b'], boardData['1c'])) {
     setStatusText(`Congratulations, Player ${boardData['1a']} Wins!`);
     return true;
   }
-  if(boardData['2a'] === boardData['2b'] && boardData['2a'] === boardData['2c'] && boardData['2a'] !== undefined) {
+  if(winCondition(boardData['2a'], boardData['2b'], boardData['2c'])) {
     setStatusText(`Congratulations, Player ${boardData['2a']} Wins!`);
     return true;
   }
-  if(boardData['3a'] === boardData['3b'] && boardData['3a'] === boardData['3c'] && boardData['3a'] !== undefined) {
+  if(winCondition(boardData['3a'], boardData['3b'], boardData['3c'])) {
     setStatusText(`Congratulations, Player ${boardData['3a']} Wins!`);
     return true;
   }
-  if(boardData['1a'] === boardData['2a'] && boardData['1a'] === boardData['3a'] && boardData['1a'] !== undefined) {
+  if(winCondition(boardData['1a'], boardData['2a'], boardData['3a'])) {
     setStatusText(`Congratulations, Player ${boardData['1a']} Wins!`);
     return true;
   }
-  if(boardData['1b'] === boardData['2b'] && boardData['1b'] === boardData['3b'] && boardData['1b'] !== undefined) {
+  if(winCondition(boardData['1b'], boardData['2b'], boardData['3b'])) {
     setStatusText(`Congratulations, Player ${boardData['1b']} Wins!`);
     return true;
   }
-  if(boardData['1c'] === boardData['2c'] && boardData['1c'] === boardData['3c'] && boardData['1c'] !== undefined) {
+  if(winCondition(boardData['1c'], boardData['2c'], boardData['3c'])) {
     setStatusText(`Congratulations, Player ${boardData['1c']} Wins!`);
     return true;
   }
-  if(boardData['1a'] === boardData['2b'] && boardData['1a'] === boardData['3c'] && boardData['1a'] !== undefined) {
+  if(winCondition(boardData['1a'], boardData['2b'], boardData['3c'])) {
     setStatusText(`Congratulations, Player ${boardData['1a']} Wins!`);
     return true;
   }
-  if(boardData['3a'] === boardData['2b'] && boardData['3a'] === boardData['1c'] && boardData['3a'] !== undefined) {
+  if(winCondition(boardData['3a'], boardData['2b'], boardData['1c'])) {
     setStatusText(`Congratulations, Player ${boardData['3a']} Wins!`);
     return true;
   }
+}
+
+// Helper function to determine if a passed-in set of squares are similar
+const winCondition = (one, two, three) => {
+  return one === two && one === three && one !== undefined;
 }
