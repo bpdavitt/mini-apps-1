@@ -89,42 +89,40 @@ const handleMove = (id) => {
 //Checks for all 8 possible win conditions. Utilizes helper to minimize code reuse
 const checkForWin = () => {
   if(winCondition(boardData['1a'], boardData['1b'], boardData['1c'])) {
-    handleWin(boardData['1a']);
     return true;
   }
   if(winCondition(boardData['2a'], boardData['2b'], boardData['2c'])) {
-    handleWin(boardData['2a']);
     return true;
   }
   if(winCondition(boardData['3a'], boardData['3b'], boardData['3c'])) {
-    handleWin(boardData['3a']);
     return true;
   }
   if(winCondition(boardData['1a'], boardData['2a'], boardData['3a'])) {
-    handleWin(boardData['1a']);
     return true;
   }
   if(winCondition(boardData['1b'], boardData['2b'], boardData['3b'])) {
-    handleWin(boardData['1b']);
     return true;
   }
   if(winCondition(boardData['1c'], boardData['2c'], boardData['3c'])) {
-    handleWin(boardData['1c']);
     return true;
   }
   if(winCondition(boardData['1a'], boardData['2b'], boardData['3c'])) {
-    handleWin(boardData['1a']);
     return true;
   }
   if(winCondition(boardData['3a'], boardData['2b'], boardData['1c'])) {
-    handleWin(boardData['3a']);
     return true;
   }
 }
 
 // Helper function to determine if a passed-in set of squares are similar
+// If arguments represent a win condition will handle win
 const winCondition = (one, two, three) => {
-  return one === two && one === three && one !== undefined;
+  if (one === two && one === three && one !== undefined) {
+    handleWin(one);
+    return true;
+  } else {
+    return false;
+  }
 }
 
 const handleWin = (winner) => {
