@@ -36,9 +36,9 @@ window.onload = function () {
   });
 }
 
-//Sets text in game status <div>
-const setStatusText = (string) => {
-  document.getElementById('game-status').textContent = (string);
+//Sets text of a given HTML element by id; defaults to game-status
+const setStatusText = (string, id = 'game-status') => {
+  document.getElementById(id).textContent = (string);
 }
 
 // Check to see if selected square is a valid move
@@ -132,8 +132,10 @@ const handleWin = (winner) => {
   boardData.nextMove = winner;
   if (winner === 'X') {
     boardData.xWins ++;
+    setStatusText(`Wins for Player X: ${boardData.xWins}`, 'x-wins')
   } else {
     boardData.oWins ++;
+    setStatusText(`Wins for Player O: ${boardData.oWins}`, 'o-wins')
   }
 }
 
