@@ -11,7 +11,9 @@ const boardData = {
       boardData.nextMove = 'X';
     }
   },
-  totalMoves: 0
+  totalMoves: 0,
+  xWins: 0,
+  oWins: 0
 };
 
 window.onload = function () {
@@ -128,6 +130,11 @@ const winCondition = (one, two, three) => {
 const handleWin = (winner) => {
   setStatusText(`Congratulations, Player ${winner} Wins!`);
   boardData.nextMove = winner;
+  if (winner === 'X') {
+    boardData.xWins ++;
+  } else {
+    boardData.oWins ++;
+  }
 }
 
 const resetGame = () => {
