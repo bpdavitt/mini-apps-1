@@ -17,3 +17,11 @@
     border: 1px solid black;
     font-size: 50px;
 }
+
+.x {
+  color: blue;
+}
+
+.o {
+  color: red;
+}

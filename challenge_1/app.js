@@ -80,6 +80,11 @@ const handleMove = (id) => {
   console.log(gameData);
   selectedSquare.textContent = gameData.nextMove;
   gameData[id] = gameData.nextMove;
+  if (gameData.nextMove === 'X') {
+    selectedSquare.className += ' x';
+  } else {
+    selectedSquare.className += ' o';
+  }
   //Toggle nextMove betwen 'X' and 'O'
   gameData.toggle();
   gameData.totalMoves ++;
@@ -156,6 +161,7 @@ const resetGame = () => {
   for (let i = 0; i < boxes.length; i++) {
     const id = boxes[i].id;
     boxes[i].textContent = '';
+    boxes[i].className = 'square';
     gameData[id] = undefined;
   }
   gameData.totalMoves = 0;
