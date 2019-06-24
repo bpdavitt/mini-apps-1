@@ -2,6 +2,7 @@ console.log('Initial setup');
 
 const boardData = {
   nextMove: 'X',
+  gameOver: false,
   toggle: () => {
     if (boardData.nextMove === 'X') {
       boardData.nextMove = 'O';
@@ -31,12 +32,16 @@ const handleClick = (id) => {
   if (validMove(id)) {
     handleMove(id);
   } else {
-    console.log('Spot taken, do better')
+    if(boardData.gameOver === true) {
+      console.log('Game is over, start a new game')
+    } else {
+      console.log('Spot taken, do better')
+    }
   }
 }
 
 const validMove = (id) => {
-  return boardData[id] === undefined;    
+  return boardData[id] === undefined && boardData.gameOver !== true;    
 }
 
 //Upon valid move this function will update the boardData object and appropriate <div>
@@ -51,6 +56,7 @@ const handleMove = (id) => {
   if (boardData.totalMoves >= 5) {
     if(checkForWin()) {
       console.log('Congratulations, someone won');
+      boardData.gameOver = true;
     } else {
       if (boardData.totalMoves === 9) {
         document.getElementById('game-status').textContent = `Game Over; Everyone Is A Loser`;
