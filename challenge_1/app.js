@@ -60,5 +60,36 @@ const handleMove = (id) => {
 }
 
 const checkForWin = () => {
-
+  if(boardData['1a'] === boardData['1b'] === boardData['1c']) {
+    document.getElementById('game-status').textContent = `Congratulations, Player ${boardData['1a']} Wins!`;
+    return;
+  }
+  if(boardData['2a'] === boardData['2b'] === boardData['2c']) {
+    document.getElementById('game-status').textContent = `Congratulations, Player ${boardData['2a']} Wins!`;
+    return;
+  }
+  if(boardData['3a'] === boardData['3b'] === boardData['3c']) {
+    document.getElementById('game-status').textContent = `Congratulations, Player ${boardData['3a']} Wins!`;
+    return;
+  }
+  if(boardData['1a'] === boardData['2a'] === boardData['3a']) {
+    document.getElementById('game-status').textContent = `Congratulations, Player ${boardData['1a']} Wins!`;
+    return;
+  }
+  if(boardData['1b'] === boardData['2b'] === boardData['3b']) {
+    document.getElementById('game-status').textContent = `Congratulations, Player ${boardData['1a']} Wins!`;
+    return;
+  }
+  if(boardData['1c'] === boardData['2c'] === boardData['3c']) {
+    document.getElementById('game-status').textContent = `Congratulations, Player ${boardData['1a']} Wins!`;
+    return;
+  }
+  if(boardData['1a'] === boardData['2b'] === boardData['3c']) {
+    document.getElementById('game-status').textContent = `Congratulations, Player ${boardData['1a']} Wins!`;
+    return;
+  }
+  if(boardData['3a'] === boardData['2b'] === boardData['1c']) {
+    document.getElementById('game-status').textContent = `Congratulations, Player ${boardData['1a']} Wins!`;
+    return;
+  }
 }
