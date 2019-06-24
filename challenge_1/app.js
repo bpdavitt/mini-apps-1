@@ -16,7 +16,7 @@ const boardData = {
 
 window.onload = function () {
   setStatusText(`Current Move: Player ${boardData.nextMove}`);
-  boxes = document.getElementsByClassName('square');
+  const boxes = document.getElementsByClassName('square');
   // Add event listener for every box
   for (let i = 0; i < boxes.length; i++) {
     boxes[i].addEventListener('click', (event) => {
@@ -26,6 +26,12 @@ window.onload = function () {
       handleClick(event.target.id);
     });
   }
+  const resetBtn = document.getElementById('reset');
+  resetBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    console.log('Reset button clicked');
+    resetGame();
+  });
 }
 
 //Sets text in game status <div>
@@ -81,35 +87,35 @@ const handleMove = (id) => {
 //Checks for all 8 possible win conditions. Utilizes helper to minimize code reuse
 const checkForWin = () => {
   if(winCondition(boardData['1a'], boardData['1b'], boardData['1c'])) {
-    setStatusText(`Congratulations, Player ${boardData['1a']} Wins!`);
+    handleWin(boardData['1a']);
     return true;
   }
   if(winCondition(boardData['2a'], boardData['2b'], boardData['2c'])) {
-    setStatusText(`Congratulations, Player ${boardData['2a']} Wins!`);
+    handleWin(boardData['2a']);
     return true;
   }
   if(winCondition(boardData['3a'], boardData['3b'], boardData['3c'])) {
-    setStatusText(`Congratulations, Player ${boardData['3a']} Wins!`);
+    handleWin(boardData['3a']);
     return true;
   }
   if(winCondition(boardData['1a'], boardData['2a'], boardData['3a'])) {
-    setStatusText(`Congratulations, Player ${boardData['1a']} Wins!`);
+    handleWin(boardData['1a']);
     return true;
   }
   if(winCondition(boardData['1b'], boardData['2b'], boardData['3b'])) {
-    setStatusText(`Congratulations, Player ${boardData['1b']} Wins!`);
+    handleWin(boardData['1b']);
     return true;
   }
   if(winCondition(boardData['1c'], boardData['2c'], boardData['3c'])) {
-    setStatusText(`Congratulations, Player ${boardData['1c']} Wins!`);
+    handleWin(boardData['1c']);
     return true;
   }
   if(winCondition(boardData['1a'], boardData['2b'], boardData['3c'])) {
-    setStatusText(`Congratulations, Player ${boardData['1a']} Wins!`);
+    handleWin(boardData['1a']);
     return true;
   }
   if(winCondition(boardData['3a'], boardData['2b'], boardData['1c'])) {
-    setStatusText(`Congratulations, Player ${boardData['3a']} Wins!`);
+    handleWin(boardData['3a']);
     return true;
   }
 }
@@ -117,4 +123,23 @@ const checkForWin = () => {
 // Helper function to determine if a passed-in set of squares are similar
 const winCondition = (one, two, three) => {
   return one === two && one === three && one !== undefined;
+}
+
+const handleWin = (winner) => {
+  setStatusText(`Congratulations, Player ${winner} Wins!`);
+  boardData.nextMove = winner;
+}
+
+const resetGame = () => {
+  const boxes = document.getElementsByClassName('square');
+  console.log(boxes);
+  for (let i = 0; i < boxes.length; i++) {
+    const id = boxes[i].id;
+    boxes[i].textContent = '';
+    boardData[id] = undefined;
+  }
+  boardData.totalMoves = 0;
+  boardData.gameOver = false;
+  setStatusText(`Current Move: Player ${boardData.nextMove}`);
+
 }
