@@ -1,14 +1,14 @@
 console.log('Initial setup');
 
 //Data to hold information about board
-const boardData = {
+const gameData = {
   nextMove: 'X',
   gameOver: false,
   toggle: () => {
-    if (boardData.nextMove === 'X') {
-      boardData.nextMove = 'O';
+    if (gameData.nextMove === 'X') {
+      gameData.nextMove = 'O';
     } else {
-      boardData.nextMove = 'X';
+      gameData.nextMove = 'X';
     }
   },
   totalMoves: 0,
@@ -17,7 +17,11 @@ const boardData = {
 };
 
 window.onload = function () {
-  setStatusText(`Current Move: Player ${boardData.nextMove}`);
+  gameData['playerX'] = prompt('Please enter a name for Player 1 (will be X\'s)', 'Enter name');
+  gameData['playerO'] = prompt('Please enter a name for Player 2 (will be O\'s)', 'Enter name');
+  setStatusText(`Current Move: ${nextPlayer()}`);
+  setStatusText(`Wins for ${gameData.playerX}: ${gameData.xWins}`, 'x-wins')
+  setStatusText(`Wins for ${gameData.playerO}: ${gameData.oWins}`, 'o-wins')
   const boxes = document.getElementsByClassName('square');
   // Add event listener for every box
   for (let i = 0; i < boxes.length; i++) {
@@ -36,6 +40,15 @@ window.onload = function () {
   });
 }
 
+//Returns the name of the next player
+const nextPlayer = () => {
+  if (gameData.nextMove === 'X') {
+    return gameData.playerX + ' (X\'s)'
+  } else {
+    return gameData.playerO + ' (O\'s)';
+  }
+}
+
 //Sets text of a given HTML element by id; defaults to game-status
 const setStatusText = (string, id = 'game-status') => {
   document.getElementById(id).textContent = (string);
@@ -46,41 +59,41 @@ const handleClick = (id) => {
   if (validMove(id)) {
     handleMove(id);
   } else {
-    if(boardData.gameOver === true) {
+    if(gameData.gameOver === true) {
       console.log('Game is over, start a new game')
       setStatusText('Game Is Over, Please Start New Game');
     } else {
       console.log('Spot taken, do better')
-      setStatusText(`Current Move: Player ${boardData.nextMove}: Please pick a square that has not been selected`);
+      setStatusText(`Current Move: ${nextPlayer()}: Please pick a square that has not been selected`);
     }
   }
 }
 
 //Check to see if square is already occupied or if game is over
 const validMove = (id) => {
-  return boardData[id] === undefined && boardData.gameOver !== true;    
+  return gameData[id] === undefined && gameData.gameOver !== true;    
 }
 
-//Upon valid move this function will update the boardData object and appropriate <div>
+//Upon valid move this function will update the gameData object and appropriate <div>
 const handleMove = (id) => {
   const selectedSquare = document.getElementById(id);
-  console.log(boardData);
-  selectedSquare.textContent = boardData.nextMove;
-  boardData[id] = boardData.nextMove;
+  console.log(gameData);
+  selectedSquare.textContent = gameData.nextMove;
+  gameData[id] = gameData.nextMove;
   //Toggle nextMove betwen 'X' and 'O'
-  boardData.toggle();
-  boardData.totalMoves ++;
-  setStatusText(`Current Move: Player ${boardData.nextMove}`);
+  gameData.toggle();
+  gameData.totalMoves ++;
+  setStatusText(`Current Move: ${nextPlayer()}`);
   //Don't need to check for wins before move 5
-  if (boardData.totalMoves >= 5) {
+  if (gameData.totalMoves >= 5) {
     if(checkForWin()) {
       console.log('Congratulations, someone won');
-      boardData.gameOver = true;
+      gameData.gameOver = true;
     } else {
       //No winner after 9 moves means game is over, no winner
-      if (boardData.totalMoves === 9) {
+      if (gameData.totalMoves === 9) {
         setStatusText(`Game Over; Everyone Is A Loser`);
-        boardData.gameOver = true;
+        gameData.gameOver = true;
       }
     }
   }
@@ -88,28 +101,28 @@ const handleMove = (id) => {
 
 //Checks for all 8 possible win conditions. Utilizes helper to minimize code reuse
 const checkForWin = () => {
-  if(winCondition(boardData['1a'], boardData['1b'], boardData['1c'])) {
+  if(winCondition(gameData['1a'], gameData['1b'], gameData['1c'])) {
     return true;
   }
-  if(winCondition(boardData['2a'], boardData['2b'], boardData['2c'])) {
+  if(winCondition(gameData['2a'], gameData['2b'], gameData['2c'])) {
     return true;
   }
-  if(winCondition(boardData['3a'], boardData['3b'], boardData['3c'])) {
+  if(winCondition(gameData['3a'], gameData['3b'], gameData['3c'])) {
     return true;
   }
-  if(winCondition(boardData['1a'], boardData['2a'], boardData['3a'])) {
+  if(winCondition(gameData['1a'], gameData['2a'], gameData['3a'])) {
     return true;
   }
-  if(winCondition(boardData['1b'], boardData['2b'], boardData['3b'])) {
+  if(winCondition(gameData['1b'], gameData['2b'], gameData['3b'])) {
     return true;
   }
-  if(winCondition(boardData['1c'], boardData['2c'], boardData['3c'])) {
+  if(winCondition(gameData['1c'], gameData['2c'], gameData['3c'])) {
     return true;
   }
-  if(winCondition(boardData['1a'], boardData['2b'], boardData['3c'])) {
+  if(winCondition(gameData['1a'], gameData['2b'], gameData['3c'])) {
     return true;
   }
-  if(winCondition(boardData['3a'], boardData['2b'], boardData['1c'])) {
+  if(winCondition(gameData['3a'], gameData['2b'], gameData['1c'])) {
     return true;
   }
 }
@@ -126,14 +139,14 @@ const winCondition = (one, two, three) => {
 }
 
 const handleWin = (winner) => {
-  setStatusText(`Congratulations, Player ${winner} Wins!`);
-  boardData.nextMove = winner;
+  gameData.nextMove = winner;
+  setStatusText(`Congratulations, ${nextPlayer()} Wins!`);
   if (winner === 'X') {
-    boardData.xWins ++;
-    setStatusText(`Wins for Player X: ${boardData.xWins}`, 'x-wins')
+    gameData.xWins ++;
+    setStatusText(`Wins for ${gameData.playerX}: ${gameData.xWins}`, 'x-wins')
   } else {
-    boardData.oWins ++;
-    setStatusText(`Wins for Player O: ${boardData.oWins}`, 'o-wins')
+    gameData.oWins ++;
+    setStatusText(`Wins for ${gameData.playerO}: ${gameData.oWins}`, 'o-wins')
   }
 }
 
@@ -143,10 +156,10 @@ const resetGame = () => {
   for (let i = 0; i < boxes.length; i++) {
     const id = boxes[i].id;
     boxes[i].textContent = '';
-    boardData[id] = undefined;
+    gameData[id] = undefined;
   }
-  boardData.totalMoves = 0;
-  boardData.gameOver = false;
-  setStatusText(`Current Move: Player ${boardData.nextMove}`);
+  gameData.totalMoves = 0;
+  gameData.gameOver = false;
+  setStatusText(`Current Move: ${nextPlayer()}`);
 
 }
