@@ -1,0 +1,19 @@
+.board-holder {
+    display: inline-flex;
+    justify-content: center;
+    justify-self: center;
+    height: 310px;
+    width: 310px;
+    flex-wrap: wrap;
+}
+
+.square {
+    display: inline-flex;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    border: 1px solid black;
+    font-size: 50px;
+}
