@@ -32,7 +32,14 @@ $(document).ready(() => {
     //Get the data and put it somewhere in the DOM
     //Will likely clear and populate a specific DIV
     const postData = (data) => {
-        $('.CSVoutput').empty()
-        $('.CSVoutput').text(data);
+        $('#CSVoutput').empty()
+        $('#CSVoutput').text(data);
     }
+
+    $('#download').click(() => {
+        $('<a />').attr({
+            download: 'export.csv',
+            href: "data:text/html," + $('#CSVoutput').text()
+        })[0].click()
+    });
 });

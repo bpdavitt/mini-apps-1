@@ -25,13 +25,7 @@ app.post('/uploadJSON', upload.single('CSVdata'), (req, res, next) => {
             res.send('Error while reading file');
         } else {
             const output = method.modelJSON(data);
-            fs.writeFile('mostRecent.csv', output, 'utf-8', (err, data) => {
-                if (err) {
-                    res.send('Error while writing most recent data')
-                } else {
-                    res.location('localhost:3000/').send(output);
-                }
-            })
+            res.location('localhost:3000/').send(output);            
         }
     })
 })
