@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "multer": "^1.4.1",
     "templatesjs": "^2.0.0"
   }
 }
