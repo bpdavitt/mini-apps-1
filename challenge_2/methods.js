@@ -7,7 +7,7 @@ module.exports.modelJSON = (input) => {
             header.push(keys);
         }
     }
-    output.push(header.join(' '));
+    output.push(header.join(', '));
 
     output.push(keyParser(input));
     // console.log(output);
@@ -22,7 +22,7 @@ const keyParser = (obj) => {
             oneLine.push(obj[keys])
         }
     }
-    output.push(oneLine.join(' '));
+    output.push(oneLine.join(', '));
     for (let i = 0; i < obj.children.length; i ++) {
         output.push(keyParser(obj.children[i]));
     }

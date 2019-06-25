@@ -2,7 +2,6 @@ $(document).ready(() => {
 
     $('form').on('submit', (event) => {
         event.preventDefault();
-        console.log('Submit button no worky')
         $.ajax({
             method: 'POST',
             url: '/uploadJSON',
@@ -35,6 +34,5 @@ $(document).ready(() => {
     const postData = (data) => {
         $('.CSVoutput').empty()
         $('.CSVoutput').text(data);
-        console.log(data);
     }
 });
