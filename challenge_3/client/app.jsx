@@ -1,4 +1,4 @@
-console.log('Is Babel working?')
+console.log('Is Babel working?');
 
 const App = () => (
     <div>
@@ -10,9 +10,11 @@ class ShoppingApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentPage: undefined
+            currentPage: undefined,
+            id_user: undefined
         }
         this.handleClick = this.handleClick.bind(this)
+        this.handleRequest = this.handleRequest.bind(this);
     }
 
     handleClick(nextPage, formData) {
@@ -24,8 +26,49 @@ class ShoppingApp extends React.Component {
                 data[formData[i].name]= formData[i].value;
             }
             console.log(data);
+            this.handleRequest(nextPage, data);
+        } else {
+            this.setState({ currentPage: nextPage });
         }
-        this.setState({ currentPage: nextPage });
+    }
+
+    handleRequest(nextPage, data) {
+        if (this.state.currentPage === F1) {
+            axios.post('/users', data)
+            .then((response) => {
+                console.log('within AXIOS user post')
+                console.log(response.data)
+                let responseData = response.data.split(':');
+                let id_user = responseData[1];
+                console.log(id_user);
+                this.setState({currentPage: nextPage, id_user: id_user})
+            })
+            .catch(() => {
+                console.log('Error occurred when posting user Data');
+            })
+        } else if (this.state.currentPage === F2) {
+            data.id_users = this.state.id_user;
+            axios.post('/contacts', data)
+            .then((response) => {
+                console.log('within AXIOS contact post')
+                console.log(response.data)
+                this.setState({currentPage: nextPage})
+            })
+            .catch(() => {
+                console.log('Error occurred when posting contact Data');
+            })
+        } else if (this.state.currentPage === F3) {
+            data.id_users = this.state.id_user;
+            axios.post('/billing', data)
+            .then((response) => {
+                console.log('within AXIOS post')
+                console.log(response.data)
+                this.setState({currentPage: nextPage})
+            })
+            .catch(() => {
+                console.log('Error occurred when posting billing Data');
+            })
+        }
     }
 
     render() {
@@ -38,6 +81,7 @@ class ShoppingApp extends React.Component {
                 <div>
                     <this.state.currentPage
                         handleClick={this.handleClick}
+                        id_user={this.state.id_user}
                     />
                 </div>
             )

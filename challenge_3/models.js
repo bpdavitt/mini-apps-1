@@ -26,8 +26,8 @@ module.exports.insertContact = (data, callback) => {
 }
 
 module.exports.insertBilling = (data, callback) => {
-    db.query(`INSERT INTO billing (cardNumber, expiration, ccv, billZip, id_users) 
-    VALUES ("${data.cardNumber}", "${data.expiration}", "${data.ccv}", "${data.billZip}", 
+    db.query(`INSERT INTO billing (cardNumber, expiration, cvv, billZip, id_users) 
+    VALUES ("${data.cardNumber}", "${data.expiration}", "${data.cvv}", "${data.billZip}", 
     "${data.id_users}");`, (err, res) => {
         if (err) {
             console.log('Error while inserting billingInfo ', err);
@@ -42,7 +42,7 @@ module.exports.getAll = (record, callback) => {
     db.query(`SELECT a.name, a.email, a.password,
                 b.address1, b.address2, b.city, b.state,
                 b.zip, b.phone,
-                c.cardNumber, c.expiration, c.ccv,
+                c.cardNumber, c.expiration, c.cvv,
                 c.billZip
             FROM users a
                 INNER JOIN contacts b

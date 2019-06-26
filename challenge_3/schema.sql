@@ -34,7 +34,7 @@ CREATE TABLE `billing` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `cardNumber` INTEGER NOT NULL,
     `expiration` VARCHAR(30) NOT NULL,
-    `ccv` INTEGER NOT NULL,
+    `cvv` INTEGER NOT NULL,
     `billZip` INTEGER NOT NULL,
     `id_users` INTEGER NOT NULL,
     PRIMARY KEY (`id`)
@@ -55,7 +55,7 @@ ALTER TABLE `billing` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`);
 --  SELECT a.name, a.email, a.password,
 --     b.address1, b.address2, b.city, b.state,
 --     b.zip, b.phone,
---     c.cardNumber, c.expiration, c.ccv,
+--     c.cardNumber, c.expiration, c.cvv,
 --     c.billZip
 -- FROM users a
 --     INNER JOIN contacts b

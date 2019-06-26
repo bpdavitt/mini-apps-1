@@ -19,7 +19,7 @@ app.post('/users', (req, res) => {
       console.log('Error while posting user', err);
       res.send();
     } else {
-      res.send(`userId is ${userId}`);
+      res.send(`userId is:${userId}`);
     }
   });
 });
