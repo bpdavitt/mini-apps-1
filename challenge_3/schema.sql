@@ -49,3 +49,17 @@ ALTER TABLE `billing` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`);
 /*  Execute this file from the command line by typing:
  *    mysql -u student < server/schema.sql
  *  to create the database and the tables.*/
+
+-- FOLLOWING is an example 
+
+--  SELECT a.name, a.email, a.password,
+--     b.address1, b.address2, b.city, b.state,
+--     b.zip, b.phone,
+--     c.cardNumber, c.expiration, c.ccv,
+--     c.billZip
+-- FROM users a
+--     INNER JOIN contacts b
+--         ON a.id = b.id_users
+--     INNER JOIN billing c
+--         ON a.id = c.id_users
+-- WHERE a.id = 1  ******** replace 1 with whatever your target user is

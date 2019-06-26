@@ -39,7 +39,17 @@ module.exports.insertBilling = (data, callback) => {
 }
 
 module.exports.getAll = (record, callback) => {
-    db.query(`SELECT * from users WHERE id = ${record.id_users}`, (err, res, fields) => {
+    db.query(`SELECT a.name, a.email, a.password,
+                b.address1, b.address2, b.city, b.state,
+                b.zip, b.phone,
+                c.cardNumber, c.expiration, c.ccv,
+                c.billZip
+            FROM users a
+                INNER JOIN contacts b
+                    ON a.id = b.id_users
+                INNER JOIN billing c
+                    ON a.id = c.id_users
+            WHERE a.id = ${record.id_users}`, (err, res, fields) => {
         if (err) {
             console.log('Error in getting all record data');
             callback(err, null);
