@@ -1,2 +1,1 @@
-
-
+console.log('Is Babel working?')
