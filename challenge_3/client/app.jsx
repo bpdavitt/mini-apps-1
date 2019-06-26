@@ -80,9 +80,9 @@ const F3 = props => {
     return (
         <h1>Please Enter Your Credit Card Info
             <form onSubmit={(event) => {props.handleClick(Confirmation, event)}}>
-                <input type="text" name="cc#" placeholder="Credit Card Number" />
-                <input type="text" name="ccExp" placeholder="Credit Card Expiration" />
-                <input type="text" name="CVV" placeholder="CVV Number" />
+                <input type="text" name="cardNumber" placeholder="Credit Card Number" />
+                <input type="text" name="expiration" placeholder="Credit Card Expiration" />
+                <input type="text" name="cvv" placeholder="CVV Number" />
                 <input type="text" name="billZip" placeholder="Billing Zip Code" />
                 <button type="submit">Click Here To Continue</button>
             </form>
