@@ -37,3 +37,14 @@ module.exports.insertBilling = (data, callback) => {
         }
     });
 }
+
+module.exports.getAll = (record, callback) => {
+    db.query(`SELECT * from users WHERE id = ${record.id_users}`, (err, res, fields) => {
+        if (err) {
+            console.log('Error in getting all record data');
+            callback(err, null);
+        } else {
+            callback(null, res);
+        }
+    })
+}

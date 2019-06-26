@@ -51,7 +51,15 @@ app.post('/billing', (req, res) => {
 })
 
 app.get('/summary', (req, res) => {
-
+  models.getAll(req.body, (err, fullData) => {
+    if (err) {
+      console.log('Error while getting summary data', err);
+      res.send();
+    } else {
+      console.log(fullData);
+      res.send(fullData);
+    }
+  })
 })
 
 app.listen(port, () => console.log('Shopping app server listening on port ' + port));
