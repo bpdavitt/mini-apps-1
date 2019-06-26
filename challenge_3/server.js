@@ -25,11 +25,29 @@ app.post('/users', (req, res) => {
 });
 
 app.post('/contacts', (req, res) => {
-
+  console.log('/contacts POST request received');
+  console.log(req.body);
+  models.insertContact(req.body, (err, contactId) => {
+    if (err) {
+      console.log('Error while posting contact', err);
+      res.send();
+    } else {
+      res.send(`contactId is ${contactId}`);
+    }
+  });
 });
 
-app.post('billing', (req, res) => {
-
+app.post('/billing', (req, res) => {
+  console.log('/billing POST request received');
+  console.log(req.body);
+  models.insertBilling(req.body, (err, billingId) => {
+    if (err) {
+      console.log('Error while posting billing info', err);
+      res.send();
+    } else {
+      res.send(`billingId is ${billingId}`);
+    }
+  });
 })
 
 app.get('/summary', (req, res) => {
