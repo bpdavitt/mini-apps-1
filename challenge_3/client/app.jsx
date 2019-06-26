@@ -11,7 +11,8 @@ class ShoppingApp extends React.Component {
         super(props);
         this.state = {
             currentPage: undefined,
-            id_user: undefined
+            id_user: undefined,
+            allInfo: undefined
         }
         this.handleClick = this.handleClick.bind(this)
         this.handleRequest = this.handleRequest.bind(this);
@@ -60,10 +61,14 @@ class ShoppingApp extends React.Component {
         } else if (this.state.currentPage === F3) {
             data.id_users = this.state.id_user;
             axios.post('/billing', data)
-            .then((response) => {
-                console.log('within AXIOS post')
-                console.log(response.data)
-                this.setState({currentPage: nextPage})
+            .then(() => {
+                return axios.get(`/summary`, {
+                    params: {id_users: this.state.id_user}
+                })
+            })
+            .then((fullResponse) => {
+                console.log(fullResponse.data[0]);
+                this.setState({currentPage: nextPage, allInfo: fullResponse.data[0]})
             })
             .catch(() => {
                 console.log('Error occurred when posting billing Data');
@@ -82,6 +87,7 @@ class ShoppingApp extends React.Component {
                     <this.state.currentPage
                         handleClick={this.handleClick}
                         id_user={this.state.id_user}
+                        allInfo={this.state.allInfo}
                     />
                 </div>
             )
@@ -135,9 +141,15 @@ const F3 = props => {
 }
 
 const Confirmation = props => {
+    
+    let infoString = '';
+    for (let keys in props.allInfo) {
+        infoString += `${keys}: ${props.allInfo[keys]} \n`
+    }
+    
     return (
         <h1>Please Review Your Info Prior to Submitting Order
-            <p>Some Info Here</p>
+            <p>{infoString}</p>
             <button onClick={() => {props.handleClick(undefined, null)}}>Click Here to Submit Order</button>
         </h1>
     )

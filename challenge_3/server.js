@@ -51,7 +51,8 @@ app.post('/billing', (req, res) => {
 })
 
 app.get('/summary', (req, res) => {
-  models.getAll(req.body, (err, fullData) => {
+  console.log(req.query);
+  models.getAll(req.query, (err, fullData) => {
     if (err) {
       console.log('Error while getting summary data', err);
       res.send();
