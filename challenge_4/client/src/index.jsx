@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Gameboard from './components/Gameboard.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor (props) {
@@ -45,7 +46,32 @@ class App extends React.Component {
     currBoard[row][col] = this.state.currentPlayer === 'X' ? 1 : 2;
     const nextPlayer = this.state.currentPlayer === 'X' ? 'O' : 'X';
     console.log(currBoard);
+    this.checkWin(row, col, currBoard, this.state.currentPlayer);
     this.setState({board: currBoard, currentPlayer: nextPlayer});
+  }
+
+  checkWin(row, col, board, player) {
+    let boardStr = '';
+    for (let i = 0; i < board.length; i++) {
+      boardStr += board[i].join('');
+    }
+    console.log(boardStr);
+    axios.get('http://kevinalbs.com/connect4/back-end/index.php/hasWon', {
+      params: {
+        board_data: boardStr,
+        i: row,
+        j: col
+      }
+    })
+      .then((response) => {
+        console.log(response.data);
+        if(response.data === true) {
+          alert(`Game Over, Player: ${player} has won!`);
+        }
+      })
+      .catch(() => {
+        console.log('Win-Check request failed')
+      })
   }
 
   render() {
