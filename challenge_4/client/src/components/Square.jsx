@@ -7,7 +7,7 @@ const Square = (props) => {
     <div class="row">
       {colVals.map(currCol => {
         return (
-          <div class="square" id={'' + props.row + currCol} />
+          <div class="square" id={'' + props.row + currCol} onClick={()=>{props.handleClick(event)}}/>
         )
       })}
     </div>

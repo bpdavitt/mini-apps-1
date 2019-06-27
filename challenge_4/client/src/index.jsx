@@ -7,21 +7,27 @@ class App extends React.Component {
     super(props);
     this.state = {
       board: [
-        [null, null, null, null, null, null, null], //0
-        [null, null, null, null, null, null, null], //1
-        [null, null, null, null, null, null, null], //2
-        [null, null, null, null, null, null, null], //3
-        [null, null, null, null, null, null, null], //4
-        [null, null, null, null, null, null, null], //5
-        [null, null, null, null, null, null, null] //6
-      ]
+        [0, 0, 0, 0, 0, 0, 0], //0
+        [0, 0, 0, 0, 0, 0, 0], //1
+        [0, 0, 0, 0, 0, 0, 0], //2
+        [0, 0, 0, 0, 0, 0, 0], //3
+        [0, 0, 0, 0, 0, 0, 0], //4
+        [0, 0, 0, 0, 0, 0, 0], //5
+        [0, 0, 0, 0, 0, 0, 0] //6
+      ],
+      currentPlayer: 'X'
     }
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event) {
+    console.log(event.target)
   }
 
   render() {
     return (
       <div>
-        <Gameboard />
+        <Gameboard handleClick={this.handleClick}/>
       </div>
     )
   }

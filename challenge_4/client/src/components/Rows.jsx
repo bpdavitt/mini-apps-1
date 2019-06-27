@@ -9,7 +9,7 @@ const Rows = (props) => {
     <div>
       {rowVals.map(currRow => {
         return(
-          <Square row={currRow}/>
+          <Square row={currRow} handleClick={props.handleClick}/>
         )
       })}
     </div>

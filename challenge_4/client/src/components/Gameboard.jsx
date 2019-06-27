@@ -4,7 +4,7 @@ import Rows from './Rows.jsx';
 const Gameboard = (props) => {
   return (
     <div class="gameboard">
-      <Rows />
+      <Rows handleClick={props.handleClick}/>
     </div>
   )
 }
