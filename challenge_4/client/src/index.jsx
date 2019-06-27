@@ -67,6 +67,10 @@ class App extends React.Component {
         console.log(response.data);
         if(response.data === true) {
           alert(`Game Over, Player: ${player} has won!`);
+          axios.post('/games', {
+            gameboard: boardStr,
+            winner: player
+          })
         }
       })
       .catch(() => {
