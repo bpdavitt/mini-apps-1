@@ -2,19 +2,19 @@
   height: 714px;
   width: 714px;
   border: 1px solid black;
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
 }
 
 .square {
   justify-content: center;
-    justify-self: center;
-    align-items: center;
-    height: 100px;
-    width: 100px;
-    border: 1px solid black;
-    font-size: 50px;
-  display: inline-block;
+  justify-self: center;
+  align-items: center;
+  height: 100px;
+  width: 100px;
+  border: 1px solid black;
+  font-size: 50px;
+  display: inline-flex;
 }
 
 .row {
