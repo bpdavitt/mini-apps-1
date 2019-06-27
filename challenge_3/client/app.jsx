@@ -79,7 +79,10 @@ class ShoppingApp extends React.Component {
     render() {
         if (this.state.currentPage === undefined) {
             return (
-                <button onClick={() => { this.handleClick(F1, null) }}>Click Here to Give Up All Your Info</button>
+                <h1>Thanks For Shopping With Us, Click the Button Below to Start Checkout
+                    <div></div>
+                    <button onClick={() => { this.handleClick(F1, null) }}>Click Here to Give Up All Your Info</button>
+                </h1>
             )
         } else {
             return (
@@ -149,7 +152,7 @@ const Confirmation = props => {
     
     return (
         <h1>Please Review Your Info Prior to Submitting Order
-            <p>{infoString}</p>
+            <p id="resultString">{infoString}</p>
             <button onClick={() => {props.handleClick(undefined, null)}}>Click Here to Submit Order</button>
         </h1>
     )
