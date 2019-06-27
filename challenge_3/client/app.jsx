@@ -6,6 +6,34 @@ const App = () => (
     </div>
 );
 
+const validateData = (page, data) => {
+    if (page === F1) {
+        if (!data.email.includes('@')) {
+            alert('Please enter a valid email address');
+            return false;
+        }
+    }
+    if (page === F2) {
+        
+    }
+    if (page === F3) {
+        if (isNaN(Number(data.cardNumber))) {
+            console.log(data.cardNumber)
+            alert('Please enter a valid card number');
+            return false;
+        }
+        if (isNaN(Number(data.cvv))) {
+            alert('Please enter a valid CVV');
+            return false;
+        }
+        if (isNaN(Number(data.billZip))) {
+            alert('Please enter a valid zip code');
+            return false;
+        }
+    }
+    return true;
+}
+
 class ShoppingApp extends React.Component {
     constructor(props) {
         super(props);
@@ -25,6 +53,9 @@ class ShoppingApp extends React.Component {
             const data = {}
             for (let i = 0; i < formData.length - 1; i++) {
                 data[formData[i].name]= formData[i].value;
+            }
+            if (!validateData(this.state.currentPage, data)) {
+                return;
             }
             console.log(data);
             this.handleRequest(nextPage, data);
