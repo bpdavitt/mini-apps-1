@@ -1,0 +1,18 @@
+.gameboard {
+  height: 714px;
+  width: 714px;
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.square {
+  height: 100px;
+  width: 100px;
+  border: 1px solid black;
+  display: inline-block;
+}
+
+.row {
+  height: 102px;
+}
